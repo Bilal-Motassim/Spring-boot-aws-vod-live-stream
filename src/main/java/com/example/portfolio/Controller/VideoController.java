@@ -31,7 +31,7 @@ public class VideoController {
         List<Video> videos = videoService.getVideos(id);
         ArrayList<VideoResponse> response = new ArrayList<>();
         for (Video v: videos) {
-            response.add(new VideoResponse(v.getVideoname(), v.getVideourl()));
+            response.add(new VideoResponse(v.getVideoname(),v.getVideoid()));
         }
         return new ResponseEntity<>(response,HttpStatus.OK);
     }

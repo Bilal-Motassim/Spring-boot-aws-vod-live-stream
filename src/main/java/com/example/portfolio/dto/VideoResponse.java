@@ -7,5 +7,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class VideoResponse {
     private String videoname;
-    private String videourl;
+    private String videoid;
 }

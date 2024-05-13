@@ -25,4 +25,10 @@ public class UserController {
         List<UserDTO> userDTOs = userMapper.toDTOList(userService.getAllUsers());
         return new ResponseEntity<>(userDTOs, HttpStatus.OK);
     }
+
+    @GetMapping("/stream/{username}")
+    public ResponseEntity<String> getStreamUrl(@PathVariable String username){
+        String url = userService.getStreamUrl(username);
+        return ResponseEntity.status(200).body(url);
+    }
 }

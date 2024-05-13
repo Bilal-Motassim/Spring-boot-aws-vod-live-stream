@@ -44,9 +44,10 @@ public class VideoServiceImpl implements VideoService {
             String extention = data.getOriginalFilename().substring(lastDotIndex + 1);
 
 
-            String videoname = UUID.randomUUID() + "." + extention;
-            video.setVideourl(AWS_CLOUDFRONT_URL + videoname);
+            String videoname = UUID.randomUUID().toString();//+ "." + extention;
+            //video.setVideourl(AWS_CLOUDFRONT_URL + videoname);
             video.setVideoname(data.getOriginalFilename());
+            video.setVideoid(videoname);
 
             Video vid = userRepository.findById(id).map(user -> {
                 video.setUser(user);
@@ -54,7 +55,7 @@ public class VideoServiceImpl implements VideoService {
             }).orElseThrow(() -> new ExecutionException("Not found user with id = " + id));
 
             if(vid!=null){
-                AWSCloudUtil.uploadFileToS3(videoname, data.getBytes(), AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_BUCKET);
+                AWSCloudUtil.uploadFileToS3(videoname+ "." + extention, data.getBytes(), AWS_ACCESS_KEY, AWS_SECRET_KEY, AWS_BUCKET);
                 return String.format("File uploaded successfully to s3", data.getOriginalFilename());
             }
         } catch (Exception e){

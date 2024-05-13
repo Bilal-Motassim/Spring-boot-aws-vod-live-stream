@@ -31,6 +31,7 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@Valid @RequestBody UserDTO userDTO, BindingResult bindingResult) {
+        log.error("vvv");
         if (bindingResult.hasErrors()) {
             return new ResponseEntity<>("Failed to register user: " + bindingResult.getAllErrors(), HttpStatus.BAD_REQUEST);
         }

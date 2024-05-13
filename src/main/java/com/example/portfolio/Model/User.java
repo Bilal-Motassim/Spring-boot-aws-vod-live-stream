@@ -3,9 +3,6 @@ package com.example.portfolio.Model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.Set;
-
 
 @Entity
 @Table(name = "users")
@@ -29,7 +26,7 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     @Column
@@ -37,5 +34,14 @@ public class User {
 
     @Column
     private String streamUrl;
+
+    @Column
+    private String streamArn;
+
+    @Column
+    private String chatArn;
+
+    @Column
+    private String chatToken;
 
 }

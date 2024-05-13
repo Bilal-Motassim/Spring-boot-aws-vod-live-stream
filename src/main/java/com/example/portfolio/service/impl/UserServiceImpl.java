@@ -20,5 +20,11 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAll();
     }
 
+    @Override
+    public String getStreamUrl(String username) {
+        User user = userRepository.findByUsername(username);
+        return user.getStreamUrl();
+    }
+
 
 }

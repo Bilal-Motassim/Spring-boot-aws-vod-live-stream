@@ -22,9 +22,10 @@ public class Video {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @Column
-    private String videourl;
 
     @Column
     private String videoname;
+
+    @Column
+    private String videoid;
 }

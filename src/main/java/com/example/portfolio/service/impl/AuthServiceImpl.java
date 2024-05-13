@@ -1,6 +1,9 @@
 package com.example.portfolio.service.impl;
 
 import com.amazonaws.services.ivs.model.CreateChannelResult;
+import com.amazonaws.services.ivschat.model.CreateChatTokenRequest;
+import com.amazonaws.services.ivschat.model.CreateChatTokenResult;
+import com.amazonaws.services.ivschat.model.CreateRoomResult;
 import com.example.portfolio.Model.User;
 import com.example.portfolio.Repository.UserRepository;
 import com.example.portfolio.dto.LoginDTO;
@@ -48,11 +51,18 @@ public class AuthServiceImpl implements AuthService {
         }
 
         CreateChannelResult result = AWSCloudUtil.createIVSChannel(AWS_ACCESS_KEY_IVS, AWS_SECRET_KEY_IVS, user.getUsername());
-
-        if(result != null){
+        //CreateRoomResult r2 = AWSCloudUtil.createRoom(AWS_ACCESS_KEY_IVS, AWS_ACCESS_KEY_IVS, user.getUsername());
+        if(result != null || result != null){
             log.error("Channel Created Name:"+result.getChannel().getName() + " StreamKey: "+result.getStreamKey().getValue());
             user.setStreamKey(result.getStreamKey().getValue());
             user.setStreamUrl(result.getChannel().getPlaybackUrl());
+            user.setStreamArn(result.getChannel().getArn());
+            //user.setChatArn(r2.getArn());
+
+            //CreateChatTokenResult res = AWSCloudUtil.createChatToken(AWS_ACCESS_KEY_IVS, AWS_SECRET_KEY_IVS, r2.getArn());
+
+            //user.setChatToken(res.getToken());
+
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
             String encodedPassword = passwordEncoder.encode(user.getPassword());
 
